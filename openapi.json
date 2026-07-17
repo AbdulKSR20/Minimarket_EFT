@@ -12,12 +12,24 @@
   ],
   "tags": [
     {
+      "name": "Detalle de Ventas",
+      "description": "API de gestion de detalles de venta."
+    },
+    {
       "name": "Inventario",
       "description": "API de gestion de inventario, incluye CRUD de movimientos de inventario."
     },
     {
+      "name": "Ventas",
+      "description": "API de gestion de ventas, incluye creacion y lectura de ventas."
+    },
+    {
       "name": "Usuarios",
       "description": "API de gestion de usuarios, incluye CRUD de usuarios."
+    },
+    {
+      "name": "Categorias",
+      "description": "API de gestion de categorias, incluye CRUD de categorias."
     },
     {
       "name": "Carrito",
@@ -769,13 +781,16 @@
     "/api/detalle-ventas/{id}": {
       "get": {
         "tags": [
-          "detalle-venta-controller"
+          "Detalle de Ventas"
         ],
+        "summary": "Obtener detalle por ID",
+        "description": "Retorna un detalle de venta por ID",
         "operationId": "obtenerDetalleVentaPorId",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id del detalle",
             "required": true,
             "schema": {
               "type": "integer",
@@ -785,26 +800,70 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Se encontro el detalle",
             "content": {
-              "*/*": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No se encontro el detalle",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleVenta"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
-          "detalle-venta-controller"
+          "Detalle de Ventas"
         ],
+        "summary": "Actualizar detalle",
+        "description": "Actualiza un detalle de venta",
         "operationId": "actualizarDetalleVenta",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -824,26 +883,70 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Detalle actualizado",
             "content": {
-              "*/*": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No se encontro el detalle",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleVenta"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
-          "detalle-venta-controller"
+          "Detalle de Ventas"
         ],
+        "summary": "Eliminar detalle",
+        "description": "Elimina un detalle de venta",
         "operationId": "eliminarDetalleVenta",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id",
             "required": true,
             "schema": {
               "type": "integer",
@@ -853,21 +956,72 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Detalle eliminado",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No se encontro el detalle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/categorias/{id}": {
       "get": {
         "tags": [
-          "categoria-controller"
+          "Categorias"
         ],
+        "summary": "Obtener categoria por ID",
+        "description": "Retorna una categoria por su ID",
         "operationId": "obtenerCategoriaPorId",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id de la categoria",
             "required": true,
             "schema": {
               "type": "integer",
@@ -877,26 +1031,74 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Se encontro la categoria",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la categoria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
-          "categoria-controller"
+          "Categorias"
         ],
+        "summary": "Actualizar categoria",
+        "description": "Actualiza una categoria existente",
         "operationId": "actualizarCategoria",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id de la categoria",
             "required": true,
             "schema": {
               "type": "integer",
@@ -916,26 +1118,84 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Categoria actualizada",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la categoria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
-          "categoria-controller"
+          "Categorias"
         ],
+        "summary": "Eliminar categoria",
+        "description": "Elimina una categoria por su ID",
         "operationId": "eliminarCategoria",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id de la categoria",
             "required": true,
             "schema": {
               "type": "integer",
@@ -945,9 +1205,41 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Categoria eliminada",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No se encontro la categoria",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {}
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/carrito/{id}": {
@@ -1199,55 +1491,111 @@
         ]
       }
     },
-    "/api/ventas": {
-      "get": {
-        "tags": [
-          "venta-controller"
-        ],
-        "operationId": "listarVentas",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Venta"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/ventas/checkout": {
       "post": {
         "tags": [
-          "venta-controller"
+          "Ventas"
         ],
-        "operationId": "guardarVenta",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Venta"
+        "summary": "Procesar checkout de carrito",
+        "description": "Crea una venta a partir del carrito de un usuario",
+        "operationId": "procesarCheckout",
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "query",
+            "description": "ID del usuario",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "sucursalId",
+            "in": "query",
+            "description": "ID de la sucursal",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "tipoEntrega",
+            "in": "query",
+            "description": "Tipo de entrega (Ej: DESPACHO, RETIRO)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "direccionDespacho",
+            "in": "query",
+            "description": "Dirección de despacho (opcional)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Venta creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VentaResponseDto"
+                }
               }
             }
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
+          "400": {
+            "description": "Error de validación o stock insuficiente",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Venta"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/usuarios": {
@@ -1688,29 +2036,61 @@
     "/api/detalle-ventas": {
       "get": {
         "tags": [
-          "detalle-venta-controller"
+          "Detalle de Ventas"
         ],
+        "summary": "Listar detalles de ventas",
+        "description": "Retorna una lista de todos los detalles de ventas",
         "operationId": "listarDetalleVentas",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Se encontraron detalles",
             "content": {
-              "*/*": {
+              "application/json": {}
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DetalleVenta"
-                  }
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
-          "detalle-venta-controller"
+          "Detalle de Ventas"
         ],
+        "summary": "Guardar detalle de venta",
+        "description": "Crea un nuevo detalle",
         "operationId": "guardarDetalleVenta",
         "requestBody": {
           "content": {
@@ -1723,45 +2103,125 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Detalle creado",
             "content": {
-              "*/*": {
+              "application/json": {}
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleVenta"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/categorias": {
       "get": {
         "tags": [
-          "categoria-controller"
+          "Categorias"
         ],
+        "summary": "Listar todas las categorias",
+        "description": "Retorna una lista de todas las categorias",
         "operationId": "listarCategorias",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Se encontraron categorias",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Categoria"
+                    "$ref": "#/components/schemas/CategoriaResponseDto"
                   }
                 }
               }
             }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
-          "categoria-controller"
+          "Categorias"
         ],
+        "summary": "Guardar categoria",
+        "description": "Guarda una nueva categoria en la base de datos",
         "operationId": "guardarCategoria",
         "requestBody": {
           "content": {
@@ -1774,17 +2234,62 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Categoria creada",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categoria"
+                  "$ref": "#/components/schemas/CategoriaResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/carrito": {
@@ -2012,16 +2517,79 @@
         }
       }
     },
+    "/api/ventas": {
+      "get": {
+        "tags": [
+          "Ventas"
+        ],
+        "summary": "Listar ventas",
+        "description": "Retorna una lista de todas las ventas registradas",
+        "operationId": "listarVentas",
+        "responses": {
+          "200": {
+            "description": "Se encontraron ventas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VentaResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/ventas/{id}": {
       "get": {
         "tags": [
-          "venta-controller"
+          "Ventas"
         ],
+        "summary": "Obtener venta por id",
+        "description": "Retorna una venta específica por su identificador",
         "operationId": "obtenerVentaPorId",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Id de la venta",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2031,16 +2599,61 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Se encontro la venta",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Venta"
+                  "$ref": "#/components/schemas/VentaResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la venta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Usuario no autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -2137,6 +2750,7 @@
       },
       "Categoria": {
         "type": "object",
+        "description": "Categoria a guardar",
         "properties": {
           "id": {
             "type": "integer",
@@ -2168,12 +2782,44 @@
             "type": "number",
             "format": "double"
           },
-          "stock": {
-            "type": "integer",
-            "format": "int32"
-          },
           "categoria": {
             "$ref": "#/components/schemas/Categoria"
+          },
+          "promocion": {
+            "$ref": "#/components/schemas/Promocion"
+          }
+        }
+      },
+      "Promocion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "porcentajeDescuento": {
+            "type": "number",
+            "format": "double"
+          },
+          "fechaInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaFin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "productos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Producto"
+            }
           }
         }
       },
@@ -2201,6 +2847,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "sucursal": {
+            "$ref": "#/components/schemas/Sucursal"
+          },
           "producto": {
             "$ref": "#/components/schemas/Producto"
           },
@@ -2214,6 +2863,53 @@
           "fechaMovimiento": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "StockSucursal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "producto": {
+            "$ref": "#/components/schemas/Producto"
+          },
+          "sucursal": {
+            "$ref": "#/components/schemas/Sucursal"
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stockMinimo": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Sucursal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "direccion": {
+            "type": "string"
+          },
+          "telefono": {
+            "type": "string"
+          },
+          "inventarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StockSucursal"
+            }
           }
         }
       },
@@ -2239,6 +2935,7 @@
       },
       "DetalleVenta": {
         "type": "object",
+        "description": "Detalle a guardar",
         "properties": {
           "id": {
             "type": "integer",
@@ -2267,6 +2964,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "sucursal": {
+            "$ref": "#/components/schemas/Sucursal"
+          },
           "usuario": {
             "$ref": "#/components/schemas/Usuario"
           },
@@ -2274,11 +2974,32 @@
             "type": "string",
             "format": "date-time"
           },
+          "tipoEntrega": {
+            "type": "string"
+          },
+          "estadoPedido": {
+            "type": "string"
+          },
+          "direccionDespacho": {
+            "type": "string"
+          },
           "detalles": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DetalleVenta"
             }
+          }
+        }
+      },
+      "CategoriaResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nombre": {
+            "type": "string"
           }
         }
       },
@@ -2320,6 +3041,64 @@
           "cantidad": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "DetalleVentaResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productoNombre": {
+            "type": "string"
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "VentaResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sucursalNombre": {
+            "type": "string"
+          },
+          "usuarioUsername": {
+            "type": "string"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tipoEntrega": {
+            "type": "string"
+          },
+          "estadoPedido": {
+            "type": "string"
+          },
+          "direccionDespacho": {
+            "type": "string"
+          },
+          "detalles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleVentaResponseDto"
+            }
+          },
+          "totalVenta": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
